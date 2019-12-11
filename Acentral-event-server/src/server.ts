@@ -6,10 +6,12 @@
 // TODO authentication
 // TODO SSE data stream
 // TODO all local in terminal
-import express = require('express');
+
+import express from "express";
 const app = express();
+
 const readline = require('readline');
-const users = []; // empty array to store the users for this test program
+const users:any  = []; // empty array to store the users for this test program
 
 //----------------------------------------------------------------------------------makes sure you can work with input
 const rl = readline.createInterface({ //rl reads the input from the command lines
@@ -18,42 +20,52 @@ const rl = readline.createInterface({ //rl reads the input from the command line
 });
 //---------------------------------------------------------------------------------------------------------------
 
+app.get('/', (res, req) =>{
+   main();
 
-main();
+});
+
+
+
+
+
 
 
 
 //----------------------------------------------------------------------------------makes sure you can work with input
 function main() {
-    rl.question('are you a new user? [y/n]', (answer) => {
+    rl.question('are you a new user? [y/n]', (answer:string) => {
         switch (answer.toLowerCase()) {
             case 'y':
                 console.log("you need to register a new account.");
-                register();
+                app.get('/register', (res, req) => {
+                    register();
+                });
                 break;
+
             case 'n':
                 console.log("you need too  log in.");
-                login();
+                app.get('/login', (res, req) => {
+                    login();
+                });
                 break;
+
             default:
                 console.log("you need to choose [y/n]");
-                main()
-
-
+                app.get('/', (res, req) => {
+                    main();
+                });
         }
     });
 }
 //---------------------------------------------------------------------------------------------------------------
-
-
 //------------------------------------------------------------------------------ function for registering a user
 function register(){
-    rl.question('enter your email: ', (email) => {
+    rl.question('enter your email: ', (email:string) => {
         if (email != "@" ){
-
         }
-        rl.question('enter your username: ', (username) => {
-            rl.question('enter your password: ', (password) => {
+        rl.question('enter your username: ', (username:string) => {
+            rl.question('enter your password: ', (password:string) => {
                 users.push({
                     id: Date.now().toString(),
                     email: email,
@@ -66,25 +78,13 @@ function register(){
     });
 }
 //---------------------------------------------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------------------------------login function
 function login() {
-    rl.question("enter email: ", (username) =>{
-        rl.question("enter password: ", (password) => {
+    rl.question("enter email: ", (username:string) =>{
+        rl.question("enter password: ", (password:string) => {
         users.find(username, password)
             //TODO authentication, id/token/userinfo
-            app.get('/' , (req, res) => {
-                res.set({
-                    connection: "keep alive",
-                    "cache-control": "no-cache",
-                    "content-Type": "text/event-stream",
-                });
-                res.write(`hello there\n\n`);
-            });
         });
     });
-
 }
 //---------------------------------------------------------------------------------------------------------------
 
