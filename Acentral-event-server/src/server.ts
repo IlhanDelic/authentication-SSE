@@ -7,7 +7,7 @@
 // TODO SSE data stream
 // TODO all local in terminal
 
-import express from "express";
+import express = require("express");
 const app = express();
 
 const readline = require('readline');
@@ -20,41 +20,40 @@ const rl = readline.createInterface({ //rl reads the input from the command line
 });
 //---------------------------------------------------------------------------------------------------------------
 
-app.get('/', (res, req) =>{
-   main();
+app.get('/', (req, res) => {
+    main();
+    res.send('Hello World');
+});
 
+app.get('/register', (req, res) => {
+   register();
+   res.send('you need a new account');
+});
+
+app.get('/login', (req, res) => {
+   login();
+   res.send('login to your account');
 });
 
 
-
-
-
-
-
-
-//----------------------------------------------------------------------------------makes sure you can work with input
+// ---------------------------------------------------------------------------------makes sure you can work with input
 function main() {
     rl.question('are you a new user? [y/n]', (answer:string) => {
         switch (answer.toLowerCase()) {
             case 'y':
                 console.log("you need to register a new account.");
-                app.get('/register', (res, req) => {
-                    register();
-                });
+                //TODO redirect instead of app.get
+                register();
                 break;
 
             case 'n':
                 console.log("you need too  log in.");
-                app.get('/login', (res, req) => {
                     login();
-                });
                 break;
 
             default:
                 console.log("you need to choose [y/n]");
-                app.get('/', (res, req) => {
                     main();
-                });
         }
     });
 }
@@ -89,3 +88,4 @@ function login() {
 //---------------------------------------------------------------------------------------------------------------
 
 app.listen(3000);
+

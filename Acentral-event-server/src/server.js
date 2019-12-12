@@ -6,12 +6,9 @@
 // TODO authentication
 // TODO SSE data stream
 // TODO all local in terminal
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var app = express_1.default();
+var express = require("express");
+var app = express();
 var readline = require('readline');
 var users = []; // empty array to store the users for this test program
 //----------------------------------------------------------------------------------makes sure you can work with input
@@ -20,30 +17,34 @@ var rl = readline.createInterface({
     output: process.stdout
 });
 //---------------------------------------------------------------------------------------------------------------
-app.get('/', function (res, req) {
+app.get('/', function (req, res) {
     main();
+    res.send('Hello World');
 });
-//----------------------------------------------------------------------------------makes sure you can work with input
+app.get('/register', function (req, res) {
+    register();
+    res.send('you need a new account');
+});
+app.get('/login', function (req, res) {
+    login();
+    res.send('login to your account');
+});
+// ---------------------------------------------------------------------------------makes sure you can work with input
 function main() {
     rl.question('are you a new user? [y/n]', function (answer) {
         switch (answer.toLowerCase()) {
             case 'y':
                 console.log("you need to register a new account.");
-                app.get('/register', function (res, req) {
-                    register();
-                });
+                //TODO redirect instead of app.get
+                register();
                 break;
             case 'n':
                 console.log("you need too  log in.");
-                app.get('/login', function (res, req) {
-                    login();
-                });
+                login();
                 break;
             default:
                 console.log("you need to choose [y/n]");
-                app.get('/', function (res, req) {
-                    main();
-                });
+                main();
         }
     });
 }
