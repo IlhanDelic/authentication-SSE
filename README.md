@@ -18,7 +18,7 @@ npm i express
 #commands 
 
 ```
-node src/server.ts       --> central server
+node src/server.js       --> central server
 
-node src/client-server.ts  --> satellite server
+node src/client-server.js  --> satellite server
 ```
