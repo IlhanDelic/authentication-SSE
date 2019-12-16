@@ -2,7 +2,7 @@
 
 This is the client to the central server. This client picks up the data and is basically the user
 
-#installation
+# installation
 
 ```
 npm i express
