@@ -12,3 +12,9 @@ npm i --save-dev nodemon dotenv
 
 npm i ejs
 ```
+
+# command 
+
+```
+node src/server.js
+```
