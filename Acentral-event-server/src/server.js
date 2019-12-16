@@ -23,6 +23,14 @@ app.get('/', function (req, res) {
     res.send('home');
     console.log('home page');
 });
+app.get('/countdown', function (req, res) {
+    res.set({
+        connection: "keep alive",
+        "cache-control": "no-cache",
+        "content-Type": "text/event-stream",
+    });
+    countdown(res, 13);
+});
 app.get('/register', function (req, res) {
     res.send('register');
     console.log('register page');
@@ -53,10 +61,12 @@ function main() {
                             return;
                         case 'n':
                             main();
+                            break;
                         default:
                             return;
                     }
                 });
+                break;
             case 'c':
                 app.get('/countdown', function (req, res) {
                     res.set({
@@ -64,8 +74,9 @@ function main() {
                         "cache-control": "no-cache",
                         "content-Type": "text/event-stream",
                     });
-                    countdown(res, 13);
+                    countdown(res, 30);
                 });
+                break;
             default:
                 console.log("you need to choose something");
                 main();

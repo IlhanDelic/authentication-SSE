@@ -27,6 +27,16 @@ app.get('/', (req, res) => {  // really important to make sure to put req first 
     console.log('home page');
 });
 
+app.get('/countdown', (req, res) =>{
+
+    res.set({
+        connection: "keep alive",
+        "cache-control": "no-cache",
+        "content-Type": "text/event-stream",
+    });
+    countdown(res, 13)
+});
+
 app.get('/register', (req, res) => {
 
    res.send('register');
@@ -78,7 +88,7 @@ function main() {
                         "cache-control": "no-cache",
                         "content-Type": "text/event-stream",
                     });
-                    countdown(res, 13)
+                    countdown(res, 30)
                 });
                 break;
 
