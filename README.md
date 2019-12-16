@@ -8,13 +8,9 @@ different kinds of dynamic data and only be able to get to this data if you are 
 # progress
 
 so far I have almost completed the register and login page without authentication
+i can send data with Server sent events at will and i can make it stop
 
-# installation 
 
-```
-npm i express
-
-```
 
 # commands 
 
