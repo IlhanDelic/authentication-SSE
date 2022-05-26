@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "eventsource": "1.0.7",
+    "eventsource": "2.0.2",
     "express": "4.17.1",
     "nodemon": "2.0.2"
   }
